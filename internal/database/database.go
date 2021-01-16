@@ -9,11 +9,6 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-const (
-	port   = 5432
-	dbname = "todanni"
-)
-
 func Open(cfg config.Config) (*gorm.DB, error) {
 
 	// Make connection string

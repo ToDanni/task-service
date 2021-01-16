@@ -1,13 +1,17 @@
 package task
 
 import (
+	"github.com/todanni/task-service/pkg/label"
+	"github.com/todanni/task-service/pkg/project"
 	"gopkg.in/guregu/null.v3"
 	"gorm.io/gorm"
 )
 
 type Task struct {
 	gorm.Model
-	Project     int         `json:"project"     db:"project"`
+	Labels      []label.Label
+	Project     project.Project
+	ProjectID   int
 	Creator     int         `json:"creator"     db:"creator"`
 	Assignee    int         `json:"assignee"    db:"assignee"`
 	Done        bool        `json:"done"        db:"done"`

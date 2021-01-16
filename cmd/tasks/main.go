@@ -10,6 +10,9 @@ import (
 	"github.com/todanni/task-service/internal/database"
 	"github.com/todanni/task-service/internal/repository"
 	"github.com/todanni/task-service/internal/service"
+	"github.com/todanni/task-service/pkg/label"
+	"github.com/todanni/task-service/pkg/project"
+	"github.com/todanni/task-service/pkg/task"
 )
 
 func main() {
@@ -27,17 +30,40 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Auto-migrate
+	err = db.AutoMigrate(&project.Project{}, &task.Task{}, &label.Label{})
+	if err != nil {
+		log.Error(err)
+	}
+
 	// Create service
 	var svc service.Service
 	svc = service.NewService(repository.NewRepository(db))
 
 	// Setup router
 	r := mux.NewRouter()
+	//r.Use(middleware.Middleware)
+	//r.Use(middleware.LoggingMiddleware)
+
+	// Task endpoints
 	api := r.PathPrefix("/api/task").Subrouter()
-	api.HandleFunc("/", svc.Create).Methods(http.MethodPost)
+	api.HandleFunc("/", svc.CreateTask).Methods(http.MethodPost)
 	api.HandleFunc("/", svc.List).Queries("project", "{project}").Methods(http.MethodGet)
-	api.HandleFunc("/{id}", svc.Update).Methods(http.MethodPatch)
-	api.HandleFunc("/{id}", svc.Delete).Methods(http.MethodDelete)
+	api.HandleFunc("/{id}", svc.UpdateTask).Methods(http.MethodPatch)
+	api.HandleFunc("/{id}", svc.DeleteTask).Methods(http.MethodDelete)
+
+	// Project endpoints
+	projectAPI := r.PathPrefix("/api/project").Subrouter()
+	projectAPI.HandleFunc("/", svc.CreateProject).Methods(http.MethodPost)
+	projectAPI.HandleFunc("/{id}", svc.UpdateProject).Methods(http.MethodPatch)
+	projectAPI.HandleFunc("/{id}", svc.DeleteProject).Methods(http.MethodDelete)
+
+	// Label endpoints
+	labelAPI := r.PathPrefix("/api/label").Subrouter()
+	labelAPI.HandleFunc("/", svc.CreateLabel).Methods(http.MethodPost)
+	labelAPI.HandleFunc("/{id}", svc.UpdateLabel).Methods(http.MethodPatch)
+	labelAPI.HandleFunc("/{id}", svc.DeleteLabel).Methods(http.MethodDelete)
+
 	log.Fatal(http.ListenAndServe(":8083", r))
 
 }

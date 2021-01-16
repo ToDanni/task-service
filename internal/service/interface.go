@@ -5,15 +5,27 @@ import (
 )
 
 type Service interface {
-	// List tasks for a given project
+	// ListAll
 	List(w http.ResponseWriter, r *http.Request)
 
-	// Create a task
-	Create(w http.ResponseWriter, r *http.Request)
+	// Task interface endpoints
+	CreateTask(w http.ResponseWriter, r *http.Request)
 
-	// Update a task
-	Update(w http.ResponseWriter, r *http.Request)
+	UpdateTask(w http.ResponseWriter, r *http.Request)
 
-	// Delete a task
-	Delete(w http.ResponseWriter, r *http.Request)
+	DeleteTask(w http.ResponseWriter, r *http.Request)
+
+	// Project interface endpoints
+	CreateProject(w http.ResponseWriter, r *http.Request)
+
+	UpdateProject(w http.ResponseWriter, r *http.Request)
+
+	DeleteProject(w http.ResponseWriter, r *http.Request)
+
+	// Label interface endpoints
+	CreateLabel(w http.ResponseWriter, r *http.Request)
+
+	UpdateLabel(w http.ResponseWriter, r *http.Request)
+
+	DeleteLabel(w http.ResponseWriter, r *http.Request)
 }
