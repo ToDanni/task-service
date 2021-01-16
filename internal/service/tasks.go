@@ -26,7 +26,7 @@ func (s *service) CreateTask(w http.ResponseWriter, r *http.Request) {
 	// Creator ID from the request is overridden
 	// so no one can create tasks in place of another person
 	userID := r.Context().Value("user_id")
-	taskRequest.Creator = userID.(int)
+	taskRequest.OwnerID = userID.(int)
 
 	var createdTask task.Task
 	createdTask, err = s.repo.InsertTask(taskRequest)

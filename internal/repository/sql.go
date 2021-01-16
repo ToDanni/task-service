@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"github.com/todanni/task-service/pkg/label"
+	"github.com/todanni/task-service/pkg/project"
 	"github.com/todanni/task-service/pkg/task"
 	"gorm.io/gorm"
 )
@@ -25,6 +27,11 @@ func (r *repository) SelectTasksByProjectID(projectID int) (tasks []task.Task, e
 	return tasks, err
 }
 
+func (r *repository) SelectAllItemsForUser() (projects []project.Project, err error) {
+	err = r.db.Find(&projects, []int{1}).Error
+	return projects, err
+}
+
 func (r *repository) UpdateTask(task task.Task) (task.Task, error) {
 	// Note: for some stupid reason, update, unlike the rest of the calls from the GORM
 	// doesn't update the task after the query with the data from the DB.
@@ -36,5 +43,37 @@ func (r *repository) UpdateTask(task task.Task) (task.Task, error) {
 
 func (r *repository) DeleteTask(id int) error {
 	err := r.db.Delete(&task.Task{}, id).Error
+	return err
+}
+
+func (r *repository) InsertProject(project project.Project) (project.Project, error) {
+	err := r.db.Create(&project).Error
+	return project, err
+}
+
+func (r *repository) UpdateProject(project project.Project) (project.Project, error) {
+	err := r.db.Model(&project).Updates(&project).Error
+	r.db.First(&project, project.ID)
+	return project, err
+}
+
+func (r *repository) DeleteProject(id int) error {
+	err := r.db.Delete(&project.Project{}, id).Error
+	return err
+}
+
+func (r *repository) InsertLabel(label label.Label) (label.Label, error) {
+	err := r.db.Create(&label).Error
+	return label, err
+}
+
+func (r *repository) UpdateLabel(label label.Label) (label.Label, error) {
+	err := r.db.Model(&label).Updates(&label).Error
+	r.db.First(&label, label.ID)
+	return label, err
+}
+
+func (r *repository) DeleteLabel(id int) error {
+	err := r.db.Delete(&label.Label{}, id).Error
 	return err
 }

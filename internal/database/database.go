@@ -10,7 +10,6 @@ import (
 )
 
 func Open(cfg config.Config) (*gorm.DB, error) {
-
 	// Make connection string
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",

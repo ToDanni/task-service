@@ -9,14 +9,14 @@ import (
 
 type Task struct {
 	gorm.Model
-	Labels      []label.Label
+	Labels      []label.Label `gorm:"many2many:task_labels;"`
 	Project     project.Project
 	ProjectID   int
-	Creator     int         `json:"creator"     db:"creator"`
+	OwnerID     int         `json:"creator"     db:"creator"`
 	Assignee    int         `json:"assignee"    db:"assignee"`
-	Done        bool        `json:"done"        db:"done"`
-	Title       string      `json:"title"       db:"title"`
-	Status      string      `json:"status"      db:"status"`
+	Done        bool        `json:"done"        gorm:"default:false"`
+	Title       string      `json:"title"       gorm:"not null"`
+	Status      string      `json:"status"      gorm:"default:Todo"`
 	CompletedAt null.String `json:"completedAt" db:"completed_at"`
 	Deadline    null.String `json:"deadline"    db:"deadline"`
 	Description null.String `json:"description" db:"description"`

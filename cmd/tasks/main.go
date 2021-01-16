@@ -36,6 +36,35 @@ func main() {
 		log.Error(err)
 	}
 
+	proj := project.Project{
+		OwnerID:     1,
+		IsDefault:   true,
+		Title:       "Test Project",
+		Description: "Test Description",
+		Logo:        "http://imgr.com/borken.png",
+	}
+
+	db.Create(&proj)
+
+	t := task.Task{
+		ProjectID: 1,
+		OwnerID:   1,
+		Assignee:  1,
+		Done:      false,
+		Title:     "Test Task",
+		Status:    "In Progress",
+		Project:   proj,
+	}
+	db.Create(&t)
+
+	l := label.Label{
+		Title:       "Test Label",
+		Description: "Test Description",
+		Colour:      "red",
+		OwnerID:     1,
+	}
+	db.Create(&l)
+
 	// Create service
 	var svc service.Service
 	svc = service.NewService(repository.NewRepository(db))
