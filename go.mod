@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/caarlos0/env/v6 v6.4.0
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gorilla/mux v1.8.0
 	github.com/sirupsen/logrus v1.7.0
 	gopkg.in/guregu/null.v3 v3.5.0
