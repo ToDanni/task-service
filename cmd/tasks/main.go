@@ -36,13 +36,13 @@ func main() {
 	r.Use(middleware.LoggingMiddleware)
 
 	// Create task service
-	task.NewTaskService(repository.NewTaskRepository(db), *r)
+	task.NewTaskService(repository.NewTaskRepository(db), r)
 
 	// Create project service
-	project.NewProjectService(repository.NewProjectRepository(db), *r)
+	project.NewProjectService(repository.NewProjectRepository(db), r)
 
 	// Create label service
-	label.NewLabelService(repository.NewLabelRepository(db), *r)
+	label.NewLabelService(repository.NewLabelRepository(db), r)
 
 	log.Fatal(http.ListenAndServe(":8083", r))
 }

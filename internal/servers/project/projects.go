@@ -16,10 +16,10 @@ type projectService struct {
 	router *mux.Router
 }
 
-func NewProjectService(repo domain.ProjectRepository, router mux.Router) domain.ProjectService {
+func NewProjectService(repo domain.ProjectRepository, router *mux.Router) domain.ProjectService {
 	server := &projectService{
 		repo:   repo,
-		router: &router,
+		router: router,
 	}
 	// Setup routing for the server
 	server.routes()

@@ -16,10 +16,10 @@ type labelService struct {
 	router *mux.Router
 }
 
-func NewLabelService(repo domain.LabelRepository, router mux.Router) domain.LabelService {
+func NewLabelService(repo domain.LabelRepository, router *mux.Router) domain.LabelService {
 	server := &labelService{
 		repo:   repo,
-		router: &router,
+		router: router,
 	}
 	server.routes()
 	return server
@@ -36,11 +36,6 @@ func (s *labelService) Create(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Error(err)
 	}
-
-	// Creator ID from the request is overridden
-	// so no one can create tasks in place of another person
-	userID := r.Context().Value("user_id")
-	labelRequest.OwnerID = userID.(int)
 
 	var createdLabel domain.Label
 	createdLabel, err = s.repo.Insert(labelRequest)

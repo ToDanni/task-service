@@ -11,10 +11,10 @@ import (
 	"github.com/todanni/task-service/pkg/domain"
 )
 
-func NewTaskService(repo domain.TaskRepository, router mux.Router) domain.TaskService {
+func NewTaskService(repo domain.TaskRepository, router *mux.Router) domain.TaskService {
 	server := &taskService{
 		repo:   repo,
-		router: &router,
+		router: router,
 	}
 	server.routes()
 	return server
