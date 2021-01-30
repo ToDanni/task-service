@@ -8,11 +8,13 @@ import (
 
 type Project struct {
 	gorm.Model
-	OwnerID     int    `json:"OwnerID"               gorm:"not null"`
-	IsDefault   bool   `json:"isDefault"             gorm:"default:false"`
-	Title       string `json:"title"                 gorm:"not null"`
-	Description string `json:"description,omitempty" db:"description"`
-	Logo        string `json:"logo,omitempty"        db:"logo"`
+	OwnerID     int     `json:"OwnerID"               gorm:"not null"`
+	IsDefault   bool    `json:"IsDefault"             gorm:"default:false"`
+	Title       string  `json:"Title"                 gorm:"not null"`
+	Description string  `json:"Description,omitempty" db:"description"`
+	Logo        string  `json:"Logo,omitempty"        db:"logo"`
+	Labels      []Label `json:"Labels"`
+	Users       []int   `json:"Members"`
 }
 
 type ProjectService interface {
@@ -24,6 +26,9 @@ type ProjectService interface {
 
 	// DeleteProject
 	DeleteProject(w http.ResponseWriter, r *http.Request)
+
+	// ListProjects
+	ListProjects(w http.ResponseWriter, r *http.Request)
 }
 
 type ProjectRepository interface {
@@ -35,4 +40,7 @@ type ProjectRepository interface {
 
 	// DeleteProject deletes an existing project record in the DB
 	DeleteProject(id int) error
+
+	// SelectProjectsByUser
+	SelectProjectsByUser(userID int) ([]Project, error)
 }

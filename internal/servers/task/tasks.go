@@ -1,4 +1,4 @@
-package service
+package task
 
 import (
 	"encoding/json"
@@ -11,8 +11,18 @@ import (
 	"github.com/todanni/task-service/pkg/domain"
 )
 
+func NewTaskService(repo domain.TaskRepository, router mux.Router) domain.TaskService {
+	server := &taskService{
+		repo:   repo,
+		router: &router,
+	}
+	server.routes()
+	return server
+}
+
 type taskService struct {
-	repo domain.TaskRepository
+	repo   domain.TaskRepository
+	router *mux.Router
 }
 
 func (s *taskService) Create(w http.ResponseWriter, r *http.Request) {
@@ -107,11 +117,5 @@ func (s *taskService) Delete(w http.ResponseWriter, r *http.Request) {
 	_, err = w.Write([]byte(""))
 	if err != nil {
 		log.Error(err)
-	}
-}
-
-func NewTaskService(repo domain.TaskRepository) domain.TaskService {
-	return &taskService{
-		repo: repo,
 	}
 }

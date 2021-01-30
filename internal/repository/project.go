@@ -9,6 +9,12 @@ type repository struct {
 	db *gorm.DB
 }
 
+func (r *repository) SelectProjectsByUser(userID int) ([]domain.Project, error) {
+	var userProjects []domain.Project
+	err := r.db.Find(&userProjects, "user_id = ? ", userID).Error
+	return userProjects, err
+}
+
 func (r *repository) InsertProject(project domain.Project) (domain.Project, error) {
 	err := r.db.Create(&project).Error
 	return project, err

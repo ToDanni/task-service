@@ -1,4 +1,4 @@
-package service
+package project
 
 import (
 	"encoding/json"
@@ -12,13 +12,18 @@ import (
 )
 
 type projectService struct {
-	repo domain.ProjectRepository
+	repo   domain.ProjectRepository
+	router *mux.Router
 }
 
-func NewProjectService(repo domain.ProjectRepository) domain.ProjectService {
-	return &projectService{
-		repo: repo,
+func NewProjectService(repo domain.ProjectRepository, router mux.Router) domain.ProjectService {
+	server := &projectService{
+		repo:   repo,
+		router: &router,
 	}
+	// Setup routing for the server
+	server.routes()
+	return server
 }
 
 func (s *projectService) CreateProject(w http.ResponseWriter, r *http.Request) {
@@ -51,7 +56,6 @@ func (s *projectService) CreateProject(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Error(err)
 	}
-
 }
 
 func (s *projectService) UpdateProject(w http.ResponseWriter, r *http.Request) {
@@ -103,6 +107,30 @@ func (s *projectService) DeleteProject(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	_, err = w.Write([]byte(""))
+	if err != nil {
+		log.Error(err)
+	}
+}
+
+func (s *projectService) ListProjects(w http.ResponseWriter, r *http.Request) {
+	userID := r.Context().Value("user_id")
+	// userID.(int)
+
+	var projects []domain.Project
+	projects, err := s.repo.SelectProjectsByUser(userID.(int))
+	if err != nil {
+		http.Error(w, "Resource not found", http.StatusNotFound)
+		return
+	}
+
+	marshalled, err := json.Marshal(projects)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	_, err = w.Write(marshalled)
 	if err != nil {
 		log.Error(err)
 	}

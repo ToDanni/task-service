@@ -2,7 +2,7 @@ package config
 
 import "github.com/caarlos0/env/v6"
 
-// Config contains the env variables needed to run the service
+// Config contains the env variables needed to run the servers
 type Config struct {
 	DBHost     string `env:"POSTGRES_HOST,required"`
 	DBPort     int    `env:"POSTGRES_PORT,required"`

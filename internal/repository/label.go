@@ -21,6 +21,12 @@ func (r *labelRepository) Delete(id int) error {
 	return err
 }
 
+func (r *labelRepository) SelectByProject(projectID int) ([]domain.Label, error) {
+	var labels []domain.Label
+	err := r.db.Where("project_id=?", projectID).Find(&labels).Error
+	return labels, err
+}
+
 func NewLabelRepository(db *gorm.DB) domain.LabelRepository {
 	return &labelRepository{
 		db: db,

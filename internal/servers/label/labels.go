@@ -1,4 +1,4 @@
-package service
+package label
 
 import (
 	"encoding/json"
@@ -12,13 +12,17 @@ import (
 )
 
 type labelService struct {
-	repo domain.LabelRepository
+	repo   domain.LabelRepository
+	router *mux.Router
 }
 
-func NewLabelService(repo domain.LabelRepository) domain.LabelService {
-	return &labelService{
-		repo: repo,
+func NewLabelService(repo domain.LabelRepository, router mux.Router) domain.LabelService {
+	server := &labelService{
+		repo:   repo,
+		router: &router,
 	}
+	server.routes()
+	return server
 }
 
 func (s *labelService) Create(w http.ResponseWriter, r *http.Request) {
@@ -84,7 +88,6 @@ func (s *labelService) Update(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Error(err)
 	}
-
 }
 
 func (s *labelService) Delete(w http.ResponseWriter, r *http.Request) {
@@ -103,6 +106,34 @@ func (s *labelService) Delete(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	_, err = w.Write([]byte(""))
+	if err != nil {
+		log.Error(err)
+	}
+}
+
+func (s *labelService) List(w http.ResponseWriter, r *http.Request) {
+	pathParams := mux.Vars(r)
+	reqID := pathParams["project"]
+	projectID, err := strconv.Atoi(reqID)
+	if err != nil {
+		http.Error(w, "Bad request", http.StatusBadRequest)
+	}
+
+	var labels []domain.Label
+	labels, err = s.repo.SelectByProject(projectID)
+	if err != nil {
+		http.Error(w, "Resource not found", http.StatusNotFound)
+		return
+	}
+
+	marshalled, err := json.Marshal(labels)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	_, err = w.Write(marshalled)
 	if err != nil {
 		log.Error(err)
 	}

@@ -13,7 +13,7 @@ const (
 	// Store this as environment variable in the future
 	Secret = "the-todanni-secret"
 	// This isn't used anywhere... yet
-	Issuer = "todanni-user-service"
+	Issuer = "todanni-user-servers"
 	// Encryption cost
 	Cost = 14
 )
