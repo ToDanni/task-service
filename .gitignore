@@ -13,3 +13,30 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+/.idea/.gitignore
+/.idea/dataSources.xml
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2.xml
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/docker.IG7vsA.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/docker.IG7vsA/schema/information_schema.FNRwLQ.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/docker.IG7vsA/schema/information_schema.FNRwLQ.zip
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/docker.IG7vsA/schema/pg_catalog.0S1ZNQ.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/docker.IG7vsA/schema/pg_catalog.0S1ZNQ.zip
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/docker.IG7vsA/schema/public.abK9xQ.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/postgres.edMnLQ.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.zip
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.zip
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/todanni.cbdruw.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/todanni.cbdruw/schema/information_schema.FNRwLQ.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/todanni.cbdruw/schema/information_schema.FNRwLQ.zip
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/todanni.cbdruw/schema/pg_catalog.0S1ZNQ.meta
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/todanni.cbdruw/schema/pg_catalog.0S1ZNQ.zip
+/.idea/dataSources/a3fdec8a-1ef6-4748-b918-94e79b9f07d2/storage_v2/_src_/database/todanni.cbdruw/schema/public.abK9xQ.meta
+/.idea/discord.xml
+/.idea/modules.xml
+/.idea/task-service.iml
+/.idea/vcs.xml
+/.idea/watcherTasks.xml
