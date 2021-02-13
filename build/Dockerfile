@@ -11,7 +11,7 @@ COPY . /build
 WORKDIR /build
 
 # Build the application
-RUN go build -o main ./cmd/tasks
+RUN go build -o main ./cmd/
 
 # Move to /dist directory as the place for resulting binary folder
 WORKDIR /dist

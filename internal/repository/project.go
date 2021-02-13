@@ -11,6 +11,9 @@ type repository struct {
 
 func (r *repository) SelectProjectsByUser(userID int) ([]domain.Project, error) {
 	var userProjects []domain.Project
+
+	// where ownder_id = ? OR something
+
 	err := r.db.Find(&userProjects, "user_id = ? ", userID).Error
 	return userProjects, err
 }

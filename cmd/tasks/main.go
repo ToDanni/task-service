@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/todanni/task-service/pkg/domain"
+
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	"github.com/todanni/task-service/internal/config"
@@ -28,6 +30,11 @@ func main() {
 	if err != nil {
 		log.Error(err)
 		os.Exit(1)
+	}
+
+	err = db.AutoMigrate(&domain.Project{}, &domain.Label{})
+	if err != nil {
+		log.Error(err)
 	}
 
 	// Setup router

@@ -7,12 +7,15 @@ import (
 )
 
 type Label struct {
-	Title       string  `json:"title"                  gorm:"not null"`
-	Description string  `json:"description,omitempty"  db:"description"`
-	Colour      string  `json:"colour"                 db:"colour"`
-	Project     Project `json:"-"`
-	ProjectID   int     `json:"ProjectID"`
+	ProjectID uint `json:"ProjectID"`
 	gorm.Model
+	EditableFields
+}
+
+type EditableFields struct {
+	Title       string `json:"Title"                  gorm:"not null"`
+	Description string `json:"Description,omitempty"  db:"description"`
+	Colour      string `json:"Colour"                 db:"colour"`
 }
 
 type LabelService interface {

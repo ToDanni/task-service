@@ -14,7 +14,7 @@ type Project struct {
 	Description string  `json:"Description,omitempty" db:"description"`
 	Logo        string  `json:"Logo,omitempty"        db:"logo"`
 	Labels      []Label `json:"Labels"`
-	Users       []int   `json:"Members"`
+	//Users       []int   `json:"Members"`
 }
 
 type ProjectService interface {
